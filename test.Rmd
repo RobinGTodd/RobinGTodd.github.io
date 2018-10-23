@@ -1,0 +1,121 @@
+---
+title: "Example Data Analysis Report"
+subtitle: "Built with a parameterized R-markdown report"
+author: "Robin Todd"
+date: "10/12/2018"
+output:
+  html_document:
+    toc: True
+    number_sections: True
+    theme: readable
+---
+<style type="text/css">
+div#TOC li {
+    list-style:none;
+    background-image:none;
+    background-repeat:none;
+    background-position:0; 
+}
+</style>
+
+```{r setup, include=FALSE}
+###Add all necessary packages###
+library(shiny)
+library(survival)
+library(tidyverse)
+library(survminer)
+library(knitr)
+library(htmlTable)
+library(kableExtra)
+library(etable)
+library(sas7bdat)
+```
+
+```{r data, include=F, echo=F}
+###Load data, need list of numerical variables
+data  <- read.sas7bdat("/Users/RT/Documents/R coding/Survival Analysis/myel.sas7bdat")
+data_main <- data  #data_main is cleaned data
+
+numvars <- c('id', 'dur')
+```
+
+
+#Data Preprocessing: 
+##coming soon
+The first step when starting a new project is often looking at your data. I will create a few functions to help automate this processes next. My thoughts so far:
+  1- determine categorical variables based on the number of levels (this will highlight possibilities, user will need to check)
+  2- Rename variables to remove spaces, shorten, etc.
+  3- This could use console output to show user a table of the variable & levels, variable name, possible new name, categorical or numerical (with y/n options?)
+
+##Table of renamed variables
+##Issues?
+
+#Data Summary
+Before doing any analysis the data should be summarized for the researcher. Variables with a high percentage of missing values need to be identified. Categorical variables should be displayed in a frequency table with attention drawn to variables with too many levels, levels that should be combined, or values that should be represented as missing. The typical statistics should be shown for all numerical variables. 
+
+One goal of the preliminary analysis report is to explain what variables might be problematic. This will give the researcher a better understanding of what types of results to expect from the analysis. Can they expect an answer to their research question based on the data available?
+
+This report aims to automate the process. The user must input a dataset (currently it assumes a SAS file, but that will be generalized and controlled by another parameter. The default will be csv file).
+
+##Data Availability Check
+####Note: {-}
+Use data documentation provided by researcher to understand what levels represent a missing data value (i.e., how the data is coded).
+
+##Frequency table for categorical variables
+
+```{r myel, ref.label="frequencyTable", echo=F}
+```
+
+Testing
+```{r, echo = F, warning = F}
+data_main  <- veteran
+numvars = c('time','diagtime','age')
+```
+
+```{r veterans, ref.label="frequencyTable", echo=FALSE, warning=F}
+```
+
+
+```{r frequencyTable, echo = F, warning=F, results = 'hide'}
+data <- select(data_main, -numvars)
+data <- data[,sort(names(data))]
+
+freqTbl<-data %>%
+  gather("variable", "value") %>%
+  group_by(variable) %>%
+  count(variable, value) %>%
+  mutate(prop=prop.table(n))
+
+varnames <- (distinct(select(freqTbl, variable)))
+
+a = data.frame(matrix(ncol = 4, nrow=nrow(varnames)))
+colnames(a) <- c('groupname','nLevels','begIndex','endIndex')
+
+i=0
+a$begIndex[1]=1
+while (i< nrow(varnames)){
+  i=i+1
+  a$groupname[i]=varnames$variable[i]
+  a$nLevels[i]=n_distinct(data[,i])
+}
+
+i=0
+while (i+1 < nrow(a)){
+  i=i+1
+  a$endIndex[i]=a$begIndex[i]+a$nLevels[i]-1
+  a$begIndex[i+1]=a$endIndex[i]+1
+  a$endIndex[i+1]=a$begIndex[i+1]+a$nLevels[i+1]-1
+}
+
+k <- "kable_styling(kable(freqTbl[,2:4], align = c('l','r','r'),format = 'html'), 'striped', full_width = T)"
+
+teststr <- str_c(k,"%>% group_rows('",as.character(a$groupname[1]),"',",as.character(a$begIndex[1]),",",as.character(a$endIndex[1]),", label_row_css = 'background-color: #666; color: #fff;')")
+
+i=2
+while (i < nrow(varnames)+1) {
+  teststr=str_c(teststr,"%>% group_rows('",as.character(a$groupname[i]),"',",as.character(a$begIndex[i]),",",as.character(a$endIndex[i]),", label_row_css = 'background-color: #666; color: #fff;')")
+i=i+1
+}
+
+eval(parse(text=teststr))
+```

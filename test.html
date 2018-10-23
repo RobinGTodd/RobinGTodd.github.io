@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Robin Todd" />
+
+<meta name="date" content="2018-10-12" />
+
+<title>Example Data Analysis Report</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Personal Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About Me</a>
+</li>
+<li>
+  <a href="test.html">Test Tutorial</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Example Data Analysis Report</h1>
+<h3 class="subtitle"><em>Built with a parameterized R-markdown report</em></h3>
+<h4 class="author"><em>Robin Todd</em></h4>
+<h4 class="date"><em>10/12/2018</em></h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#data-preprocessing"><span class="toc-section-number">1</span> Data Preprocessing:</a><ul>
+<li><a href="#coming-soon"><span class="toc-section-number">1.1</span> coming soon</a></li>
+<li><a href="#table-of-renamed-variables"><span class="toc-section-number">1.2</span> Table of renamed variables</a></li>
+<li><a href="#issues"><span class="toc-section-number">1.3</span> Issues?</a></li>
+</ul></li>
+<li><a href="#data-summary"><span class="toc-section-number">2</span> Data Summary</a><ul>
+<li><a href="#data-availability-check"><span class="toc-section-number">2.1</span> Data Availability Check</a></li>
+<li><a href="#frequency-table-for-categorical-variables"><span class="toc-section-number">2.2</span> Frequency table for categorical variables</a></li>
+</ul></li>
+</ul>
+</div>
+
+<style type="text/css">
+div#TOC li {
+    list-style:none;
+    background-image:none;
+    background-repeat:none;
+    background-position:0; 
+}
+</style>
+<div id="data-preprocessing" class="section level1">
+<h1><span class="header-section-number">1</span> Data Preprocessing:</h1>
+<div id="coming-soon" class="section level2">
+<h2><span class="header-section-number">1.1</span> coming soon</h2>
+<p>The first step when starting a new project is often looking at your data. I will create a few functions to help automate this processes next. My thoughts so far: 1- determine categorical variables based on the number of levels (this will highlight possibilities, user will need to check) 2- Rename variables to remove spaces, shorten, etc. 3- This could use console output to show user a table of the variable &amp; levels, variable name, possible new name, categorical or numerical (with y/n options?)</p>
+</div>
+<div id="table-of-renamed-variables" class="section level2">
+<h2><span class="header-section-number">1.2</span> Table of renamed variables</h2>
+</div>
+<div id="issues" class="section level2">
+<h2><span class="header-section-number">1.3</span> Issues?</h2>
+</div>
+</div>
+<div id="data-summary" class="section level1">
+<h1><span class="header-section-number">2</span> Data Summary</h1>
+<p>Before doing any analysis the data should be summarized for the researcher. Variables with a high percentage of missing values need to be identified. Categorical variables should be displayed in a frequency table with attention drawn to variables with too many levels, levels that should be combined, or values that should be represented as missing. The typical statistics should be shown for all numerical variables.</p>
+<p>One goal of the preliminary analysis report is to explain what variables might be problematic. This will give the researcher a better understanding of what types of results to expect from the analysis. Can they expect an answer to their research question based on the data available?</p>
+<p>This report aims to automate the process. The user must input a dataset (currently it assumes a SAS file, but that will be generalized and controlled by another parameter. The default will be csv file).</p>
+<div id="data-availability-check" class="section level2">
+<h2><span class="header-section-number">2.1</span> Data Availability Check</h2>
+<div id="note" class="section level4 unnumbered">
+<h4>Note:</h4>
+<p>Use data documentation provided by researcher to understand what levels represent a missing data value (i.e., how the data is coded).</p>
+</div>
+</div>
+<div id="frequency-table-for-categorical-variables" class="section level2">
+<h2><span class="header-section-number">2.2</span> Frequency table for categorical variables</h2>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+value
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+prop
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="2">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>renal</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+0
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+0.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+1
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>status</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+0
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+1
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+0.68
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>treat</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+1
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+2
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+0.52
+</td>
+</tr>
+</tbody>
+</table>
+<p>Testing</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+value
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+prop
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="4">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>celltype</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+adeno
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+0.1970803
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+large
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+0.1970803
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+smallcell
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+0.3503650
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+squamous
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+0.2554745
+</td>
+</tr>
+<tr grouplength="12">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>karno</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.0072993
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+20
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.0510949
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+30
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+0.1021898
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+40
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+0.1167883
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+50
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+0.1021898
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+60
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+0.1970803
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+70
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+0.1678832
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+75
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.0145985
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+80
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+0.1751825
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+85
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.0072993
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+90
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.0510949
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+99
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.0072993
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>prior</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+0
+</td>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+0.7080292
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+0.2919708
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>status</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+0
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.0656934
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+1
+</td>
+<td style="text-align:right;">
+128
+</td>
+<td style="text-align:right;">
+0.9343066
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>trt</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+1
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+0.5036496
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+2
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+0.4963504
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
