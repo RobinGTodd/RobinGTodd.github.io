@@ -7,7 +7,7 @@ output:
   html_document:
     toc: True
     number_sections: True
-    theme: readable
+    theme: journal
 ---
 <style type="text/css">
 div#TOC li {

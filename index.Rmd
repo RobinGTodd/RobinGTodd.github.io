@@ -1,5 +1,9 @@
 ---
-title: "Personal Website"
+title: "My Website"
+subtitle: "Welcome"
+output:
+  html_document:
+    theme: journal
 ---
 
 Hi Shawny! Do you like the website?

@@ -1,5 +1,9 @@
 ---
 title: "About Me"
+subtitle: "My adventures"
+output:
+  html_document:
+    theme: journal
 ---
 
 Why I am awesome. 
