@@ -6,8 +6,9 @@ date: "10/12/2018"
 output:
   html_document:
     toc: True
+    toc_float: True
     number_sections: True
-    theme: journal
+    theme: paper
 ---
 <style type="text/css">
 div#TOC li {
