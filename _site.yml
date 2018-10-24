@@ -9,3 +9,8 @@ navbar:
       href: about.html
     - text: "Test Tutorial"
       href: test.html
+output:
+    html_document:
+      theme: spacelab
+      highlight: textmate
+      css: styles.css

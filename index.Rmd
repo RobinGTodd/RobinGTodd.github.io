@@ -3,7 +3,7 @@ title: "My Website"
 subtitle: "Welcome"
 output:
   html_document:
-    theme: paper
+    theme: spacelab
 ---
 
 Hi Shawny! Do you like the website?

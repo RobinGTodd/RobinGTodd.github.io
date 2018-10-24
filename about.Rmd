@@ -3,7 +3,7 @@ title: "About Me"
 subtitle: "My adventures"
 output:
   html_document:
-    theme: paper
+    theme: spacelab
 ---
 
 Why I am awesome. 

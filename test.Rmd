@@ -4,11 +4,11 @@ subtitle: "Built with a parameterized R-markdown report"
 author: "Robin Todd"
 date: "10/12/2018"
 output:
-  html_document:
-    toc: True
-    toc_float: True
-    number_sections: True
-    theme: paper
+    html_document:
+      theme: spacelab
+      toc: True
+      toc_float: True
+      number_sections: True
 ---
 <style type="text/css">
 div#TOC li {
@@ -41,26 +41,8 @@ numvars <- c('id', 'dur')
 ```
 
 
-#Data Preprocessing: 
-##coming soon
-The first step when starting a new project is often looking at your data. I will create a few functions to help automate this processes next. My thoughts so far:
-  1- determine categorical variables based on the number of levels (this will highlight possibilities, user will need to check)
-  2- Rename variables to remove spaces, shorten, etc.
-  3- This could use console output to show user a table of the variable & levels, variable name, possible new name, categorical or numerical (with y/n options?)
-
-##Table of renamed variables
-##Issues?
 
 #Data Summary
-Before doing any analysis the data should be summarized for the researcher. Variables with a high percentage of missing values need to be identified. Categorical variables should be displayed in a frequency table with attention drawn to variables with too many levels, levels that should be combined, or values that should be represented as missing. The typical statistics should be shown for all numerical variables. 
-
-One goal of the preliminary analysis report is to explain what variables might be problematic. This will give the researcher a better understanding of what types of results to expect from the analysis. Can they expect an answer to their research question based on the data available?
-
-This report aims to automate the process. The user must input a dataset (currently it assumes a SAS file, but that will be generalized and controlled by another parameter. The default will be csv file).
-
-##Data Availability Check
-####Note: {-}
-Use data documentation provided by researcher to understand what levels represent a missing data value (i.e., how the data is coded).
 
 ##Frequency table for categorical variables
 
